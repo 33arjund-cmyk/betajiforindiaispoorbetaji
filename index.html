@@ -1,151 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Homelessness and Poverty in India</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Homelessness & Poverty in India</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            color: #222;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
+<style>
+/* ===== BASIC STYLES ===== */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    color: #222;
+    line-height: 1.6;
+}
 
-        header {
-            background-color: #7b0000;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
+header {
+    background: #7b0000;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
 
-        section {
-            background-color: white;
-            margin: 12px;
-            padding: 15px;
-            border-radius: 6px;
-        }
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    background: #333;
+}
 
-        h2 {
-            color: #7b0000;
-        }
+nav button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: #333;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
 
-        ul {
-            margin-left: 20px;
-        }
+nav button:hover {
+    background: #555;
+}
 
-        footer {
-            text-align: center;
-            padding: 12px;
-            font-size: 14px;
-            color: #555;
-        }
-    </style>
+section {
+    display: none;
+    background: white;
+    margin: 12px;
+    padding: 15px;
+    border-radius: 6px;
+}
+
+section.active {
+    display: block;
+}
+
+h2 {
+    color: #7b0000;
+}
+
+/* ===== BAR GRAPH STYLES ===== */
+.graph {
+    margin-top: 15px;
+}
+
+.bar-container {
+    background: #ddd;
+    border-radius: 5px;
+    margin: 8px 0;
+}
+
+.bar {
+    height: 24px;
+    border-radius: 5px;
+    color: white;
+    padding-left: 8px;
+    font-size: 13px;
+    line-height: 24px;
+}
+
+.red { background: #8b0000; }
+.orange { background: #cc5500; }
+.blue { background: #005f99; }
+.green { background: #2e8b57; }
+
+footer {
+    text-align: center;
+    padding: 12px;
+    font-size: 14px;
+    color: #555;
+}
+</style>
+
+<script>
+function showSection(id) {
+    let sections = document.querySelectorAll("section");
+    sections.forEach(sec => sec.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+}
+</script>
 </head>
+
 <body>
 
 <header>
     <h1>Homelessness & Poverty in India</h1>
-    <p>Text-Only Awareness and Educational App</p>
+    <p>Interactive Text-Only Awareness App</p>
 </header>
 
-<section>
-    <h2>Introduction</h2>
-    <p>
-        Homelessness and extreme poverty remain serious challenges in India.
-        Millions of people live without permanent shelter, stable income,
-        clean water, sanitation, or access to healthcare.
-    </p>
+<nav>
+    <button onclick="showSection('intro')">Introduction</button>
+    <button onclick="showSection('stats')">Statistics</button>
+    <button onclick="showSection('graphs')">Graphs</button>
+    <button onclick="showSection('impact')">Impact</button>
+    <button onclick="showSection('why')">Why Fix This</button>
+    <button onclick="showSection('solutions')">Solutions</button>
+</nav>
+
+<!-- ===== INTRO ===== -->
+<section id="intro" class="active">
+<h2>Introduction</h2>
+<p>
+India has millions of people who live without permanent shelter.
+Homelessness is caused by poverty, unemployment, migration, disasters,
+and lack of affordable housing.
+</p>
+<p>
+This app uses only text and simple graphs to explain how serious
+the problem is and why action is necessary.
+</p>
 </section>
 
-<section>
-    <h2>Who Are the Homeless?</h2>
-    <p>
-        Homeless people in India include daily-wage laborers, migrant workers,
-        elderly individuals, women, children, and people with disabilities.
-        Many work long hours but still cannot afford housing.
-    </p>
+<!-- ===== STATS ===== -->
+<section id="stats">
+<h2>Key Statistics (Estimates)</h2>
+<ul>
+    <li>1.7–2 million people are homeless in India</li>
+    <li>65+ million people live in slums or temporary housing</li>
+    <li>30–40% of urban residents live in informal settlements</li>
+    <li>1 in 5 urban workers earns below basic living cost</li>
+    <li>50%+ homeless people rely on daily-wage labor</li>
+    <li>Homeless people are 3–4× more likely to be seriously ill</li>
+    <li>Millions of children miss school due to poverty</li>
+    <li>Life expectancy of homeless people is far lower</li>
+</ul>
 </section>
 
-<section>
-    <h2>Major Statistics (Estimates)</h2>
-    <ul>
-        <li>India has an estimated <strong>1.7 to 2 million homeless people</strong>.</li>
-        <li>Over <strong>65 million people</strong> live in slums or temporary housing.</li>
-        <li>Nearly <strong>30–40%</strong> of the urban population lives in informal settlements.</li>
-        <li>About <strong>1 in 5 urban workers</strong> earns less than the basic cost of living.</li>
-        <li>More than <strong>50%</strong> of homeless adults depend on daily-wage labor.</li>
-        <li>Homeless people are <strong>3 to 4 times more likely</strong> to suffer from untreated illness.</li>
-        <li>Millions of children remain <strong>out of school</strong> due to poverty and housing insecurity.</li>
-        <li>Life expectancy among the homeless is significantly <strong>lower than the national average</strong>.</li>
-        <li>Women and children form a <strong>large and vulnerable share</strong> of the homeless population.</li>
-    </ul>
+<!-- ===== GRAPHS ===== -->
+<section id="graphs">
+<h2>Visual Graphs (Text-Based)</h2>
+
+<p><strong>Urban Housing Situation (Approximate)</strong></p>
+<div class="graph">
+    <div class="bar-container">
+        <div class="bar red" style="width:40%">40% Informal Housing</div>
+    </div>
+    <div class="bar-container">
+        <div class="bar green" style="width:60%">60% Formal Housing</div>
+    </div>
+</div>
+
+<p><strong>Income Security of Urban Workers</strong></p>
+<div class="graph">
+    <div class="bar-container">
+        <div class="bar orange" style="width:20%">20% Below Living Wage</div>
+    </div>
+    <div class="bar-container">
+        <div class="bar blue" style="width:80%">80% Barely / Stable</div>
+    </div>
+</div>
+
+<p><strong>Education Access for Homeless Children</strong></p>
+<div class="graph">
+    <div class="bar-container">
+        <div class="bar red" style="width:45%">45% Out of School</div>
+    </div>
+    <div class="bar-container">
+        <div class="bar green" style="width:55%">55% Some Access</div>
+    </div>
+</div>
 </section>
 
-<section>
-    <h2>Daily Life Struggles</h2>
-    <p>
-        Homeless individuals often sleep on footpaths, railway stations,
-        bus stops, under bridges, or in open spaces. They face hunger,
-        unsafe drinking water, extreme weather, and constant fear of eviction.
-    </p>
+<!-- ===== IMPACT ===== -->
+<section id="impact">
+<h2>Impact of Homelessness</h2>
+<p>
+Homelessness affects not only individuals but society as a whole.
+</p>
+<ul>
+    <li>Higher disease spread</li>
+    <li>Increased healthcare burden</li>
+    <li>Unsafe cities and public spaces</li>
+    <li>Lost economic productivity</li>
+    <li>Generational poverty</li>
+</ul>
 </section>
 
-<section>
-    <h2>Impact on Children</h2>
-    <p>
-        Children without stable housing often miss school, suffer from
-        malnutrition, and are forced into child labor. Without education,
-        they are likely to remain trapped in poverty as adults.
-    </p>
+<!-- ===== WHY FIX ===== -->
+<section id="why">
+<h2>Why We Must Fix This</h2>
+<ul>
+    <li>Housing is a basic human need</li>
+    <li>Healthy citizens build strong economies</li>
+    <li>Educated children mean a better future</li>
+    <li>Prevention is cheaper than crisis management</li>
+    <li>Reducing poverty improves safety and dignity</li>
+</ul>
+<p>
+Ignoring homelessness costs more than fixing it.
+Long-term solutions benefit everyone.
+</p>
 </section>
 
-<section>
-    <h2>Health Consequences</h2>
-    <p>
-        Poor sanitation and lack of medical access lead to high rates of
-        infections, respiratory diseases, malnutrition, and mental health issues.
-        Small illnesses often become life-threatening.
-    </p>
-</section>
-
-<section>
-    <h2>Why We Must Fix This</h2>
-    <ul>
-        <li>Homelessness weakens the national economy.</li>
-        <li>Unhealthy populations increase healthcare costs.</li>
-        <li>Uneducated children reduce future productivity.</li>
-        <li>Poverty increases crime, exploitation, and insecurity.</li>
-        <li>Providing housing improves public health and safety.</li>
-        <li>Every human deserves dignity, shelter, and opportunity.</li>
-    </ul>
-</section>
-
-<section>
-    <h2>What Can Be Done</h2>
-    <ul>
-        <li>Increase affordable housing projects.</li>
-        <li>Improve access to education and skill training.</li>
-        <li>Expand shelters and healthcare services.</li>
-        <li>Support NGOs and community programs.</li>
-        <li>Create stable employment opportunities.</li>
-    </ul>
-</section>
-
-<section>
-    <h2>Conclusion</h2>
-    <p>
-        Homelessness is not just a personal failure but a social issue.
-        With awareness, policy action, and compassion, India can reduce
-        poverty and provide a better future for millions.
-    </p>
+<!-- ===== SOLUTIONS ===== -->
+<section id="solutions">
+<h2>Possible Solutions</h2>
+<ul>
+    <li>Affordable housing programs</li>
+    <li>Night shelters and sanitation access</li>
+    <li>Free education for homeless children</li>
+    <li>Skill training and stable jobs</li>
+    <li>Support NGOs and community efforts</li>
+</ul>
+<p>
+With proper planning and compassion, homelessness can be reduced.
+</p>
 </section>
 
 <footer>
-    <p>Educational HTML App | Text Only | No Images Used</p>
+<p>Educational HTML App • Text Only • No Images • Offline Ready</p>
 </footer>
 
 </body>
