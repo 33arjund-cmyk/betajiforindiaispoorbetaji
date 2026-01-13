@@ -2,143 +2,102 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Homelessness & Poverty in India</title>
+<title>Homelessness & Poverty in India - Mega App</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f2f2f2;
-    color: #222;
-    line-height: 1.6;
-}
+/* ===== BODY & HEADER ===== */
+body { margin:0; font-family: Arial,sans-serif; background:#f2f2f2; color:#222; line-height:1.6; }
+header { background:#7b0000; color:white; padding:20px; text-align:center; }
+header button { margin-top:10px; background:#ff8c00; color:white; border:none; padding:10px 15px; font-size:14px; cursor:pointer; border-radius:5px; transition:0.3s; }
+header button:hover { background:#ffa500; }
 
-header {
-    background: #7b0000;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
+/* ===== COLLAPSIBLE SECTIONS ===== */
+section { margin:12px; }
+.collapsible { background-color:#333; color:white; cursor:pointer; padding:12px; width:100%; text-align:left; border:none; outline:none; font-size:16px; border-radius:5px; transition: background 0.3s, transform 0.2s; position:relative; overflow:hidden; }
+.collapsible:hover { background-color:#555; transform:scale(1.02); }
+.collapsible::after { content:'+'; color:white; font-weight:bold; float:right; }
+.activeCollapsible::after { content:'−'; }
+.content { padding:0 12px; max-height:0; overflow:hidden; transition:max-height 0.5s ease-out; background:white; border-radius:0 0 5px 5px; margin-bottom:12px; }
+.content p, .content ul { margin:10px 0; }
 
-header button {
-    margin-top: 10px;
-    background: #ff8c00;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 14px;
-    cursor: pointer;
-    border-radius: 5px;
-}
+/* ===== LISTS ===== */
+ul { margin-left:20px; }
 
-header button:hover {
-    background: #ffa500;
-}
+/* ===== BAR GRAPHS ===== */
+.graph { margin-top:15px; }
+.bar-container { background:#ddd; border-radius:5px; margin:8px 0; overflow:hidden; }
+.bar { height:24px; border-radius:5px; color:white; padding-left:8px; font-size:13px; line-height:24px; width:0; transition:width 1s ease-out; }
 
-section {
-    margin: 12px;
-}
+/* COLORS */
+.red { background:#8b0000; }
+.orange { background:#cc5500; }
+.blue { background:#005f99; }
+.green { background:#2e8b57; }
+.purple { background:#800080; }
+.yellow { background:#ffcc00; }
 
-.collapsible {
-    background-color: #333;
-    color: white;
-    cursor: pointer;
-    padding: 12px;
-    width: 100%;
-    text-align: left;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    border-radius: 5px;
-    transition: background 0.3s;
-}
+/* PIE CHARTS */
+.pie { width:150px; height:150px; border-radius:50%; background:conic-gradient(#8b0000 0% 40%, #2e8b57 0 100%); margin:10px auto; position:relative; }
+.pie span { position:absolute; width:100%; text-align:center; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:bold; }
 
-.collapsible:hover {
-    background-color: #555;
-}
+/* NUMERIC COUNTER */
+.counter { font-size:22px; font-weight:bold; color:#7b0000; }
 
-.activeCollapsible {
-    background-color: #555;
-}
+/* RIPPLE EFFECT */
+.ripple { position:relative; overflow:hidden; }
+.ripple:after { content:""; position:absolute; width:100px; height:100px; background:rgba(255,255,255,0.3); display:block; border-radius:50%; transform:scale(0); opacity:0; pointer-events:none; animation:ripple 0.6s linear; }
+@keyframes ripple { to { transform:scale(4); opacity:0; } }
 
-.content {
-    padding: 0 12px;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease-out;
-    background: white;
-    border-radius: 0 0 5px 5px;
-    margin-bottom: 12px;
-}
-
-.content p, .content ul {
-    margin: 10px 0;
-}
-
-ul { margin-left: 20px; }
-
-/* BAR GRAPH */
-.graph {
-    margin-top: 15px;
-}
-.bar-container {
-    background: #ddd;
-    border-radius: 5px;
-    margin: 8px 0;
-    overflow: hidden;
-}
-.bar {
-    height: 24px;
-    border-radius: 5px;
-    color: white;
-    padding-left: 8px;
-    font-size: 13px;
-    line-height: 24px;
-    width: 0;
-    transition: width 1s ease-out;
-}
-.red { background: #8b0000; }
-.orange { background: #cc5500; }
-.blue { background: #005f99; }
-.green { background: #2e8b57; }
-
+footer { text-align:center; padding:12px; font-size:14px; color:#555; }
 </style>
-<script>
-let hindiMode = false;
 
-function toggleLanguage() {
+<script>
+let hindiMode=false;
+
+// LANGUAGE TOGGLE
+function toggleLanguage(){
     hindiMode = !hindiMode;
-    document.querySelectorAll("[data-en]").forEach(el => {
-        el.innerHTML = hindiMode ? el.getAttribute("data-hi") : el.getAttribute("data-en");
+    document.querySelectorAll("[data-en]").forEach(el=>{
+        el.innerHTML = hindiMode? el.getAttribute("data-hi") : el.getAttribute("data-en");
     });
-    document.querySelector("#modeBtn").innerText = hindiMode ? "English Mode" : "हिंदी मोड";
+    document.getElementById("modeBtn").innerText = hindiMode? "English Mode" : "हिंदी मोड";
 }
 
-// Collapsible functionality
-document.addEventListener("DOMContentLoaded", () => {
-    let coll = document.getElementsByClassName("collapsible");
-    for (let i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
+// COLLAPSIBLE SECTIONS
+document.addEventListener("DOMContentLoaded", ()=>{
+    let coll=document.getElementsByClassName("collapsible");
+    for(let i=0;i<coll.length;i++){
+        coll[i].addEventListener("click", function(){
             this.classList.toggle("activeCollapsible");
-            let content = this.nextElementSibling;
-            if (content.style.maxHeight){
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-                // Animate bars if any
-                let bars = content.querySelectorAll(".bar");
-                bars.forEach(bar => {
-                    let w = bar.getAttribute("data-width");
-                    setTimeout(() => { bar.style.width = w; }, 100);
+            let content=this.nextElementSibling;
+            if(content.style.maxHeight){ content.style.maxHeight=null; }
+            else { content.style.maxHeight=content.scrollHeight+"px";
+                // Animate bars inside this content
+                let bars=content.querySelectorAll(".bar");
+                bars.forEach(bar=>{
+                    let w=bar.getAttribute("data-width");
+                    setTimeout(()=>{ bar.style.width=w; },100);
+                });
+                // Animate counters
+                let counters=content.querySelectorAll(".counter");
+                counters.forEach(c=>{
+                    let target=parseInt(c.getAttribute("data-target"));
+                    let count=0;
+                    let step=Math.ceil(target/100);
+                    let interval=setInterval(()=>{
+                        count+=step;
+                        if(count>=target){ count=target; clearInterval(interval); }
+                        c.innerText=count.toLocaleString();
+                    },10);
                 });
             }
         });
     }
 });
 </script>
-</head>
-<body>
 
+<body>
 <header>
 <h1 data-en="Homelessness & Poverty in India" data-hi="भारत में बेघर और गरीबी">Homelessness & Poverty in India</h1>
 <p data-en="Interactive Text-Only Awareness App" data-hi="इंटरएक्टिव टेक्स्ट-ओनली जागरूकता ऐप">Interactive Text-Only Awareness App</p>
@@ -146,75 +105,79 @@ document.addEventListener("DOMContentLoaded", () => {
 </header>
 
 <section>
-<button class="collapsible" data-en="Introduction" data-hi="परिचय">Introduction</button>
+<button class="collapsible ripple" data-en="Introduction" data-hi="परिचय">Introduction</button>
 <div class="content">
-<p data-en="India has millions of people who live without permanent shelter. Homelessness is caused by poverty, unemployment, migration, disasters, and lack of affordable housing."
-   data-hi="भारत में लाखों लोग हैं जो स्थायी आवास के बिना रहते हैं। बेघर होने का कारण गरीबी, बेरोज़गारी, प्रवासन, आपदाएँ और किफ़ायती आवास की कमी है।">India has millions of people who live without permanent shelter...</p>
-<p data-en="This app uses only text and simple graphs to explain the problem and why action is necessary."
-   data-hi="यह ऐप केवल टेक्स्ट और सरल ग्राफ़ का उपयोग करके समस्या और कार्रवाई के कारण को बताता है।">This app uses only text and simple graphs...</p>
+<p data-en="India has millions of people living without permanent shelter. Poverty, migration, and disasters force many to sleep on streets."
+   data-hi="भारत में लाखों लोग स्थायी आवास के बिना रहते हैं। गरीबी, प्रवासन और आपदाएँ कई लोगों को सड़कों पर सोने के लिए मजबूर करती हैं।">India has millions...</p>
+<p data-en="This app explains the problem with stats, graphs, counters, and solutions." data-hi="यह ऐप आंकड़े, ग्राफ़, काउंटर और समाधान के साथ समस्या को समझाता है।">This app explains...</p>
 </div>
 
-<button class="collapsible" data-en="Statistics" data-hi="सांख्यिकी">Statistics</button>
+<button class="collapsible ripple" data-en="Statistics" data-hi="सांख्यिकी">Statistics</button>
 <div class="content">
 <ul>
-<li data-en="1.7–2 million people are homeless" data-hi="भारत में 1.7–2 मिलियन लोग बेघर हैं">1.7–2 million people are homeless</li>
-<li data-en="65+ million live in slums or temporary housing" data-hi="65+ मिलियन लोग झुग्गियों या अस्थायी आवास में रहते हैं">65+ million live in slums</li>
-<li data-en="30–40% urban residents in informal settlements" data-hi="30–40% शहरी निवासी अनौपचारिक बस्तियों में रहते हैं">30–40% urban residents in informal settlements</li>
+<li data-en="1.7–2 million people are homeless in India" data-hi="भारत में 1.7–2 मिलियन लोग बेघर हैं">1.7–2 million homeless</li>
+<li data-en="65+ million live in slums or temporary housing" data-hi="65+ मिलियन लोग झुग्गियों या अस्थायी आवास में रहते हैं">65+ million in slums</li>
 <li data-en="50%+ rely on daily-wage labor" data-hi="50%+ लोग दैनिक मजदूरी पर निर्भर हैं">50%+ rely on daily-wage labor</li>
+<li data-en="Millions of children miss school" data-hi="लाखों बच्चे स्कूल नहीं जा पाते">Millions of children miss school</li>
 </ul>
+<p data-en="Population Growth Counter:" data-hi="जनसंख्या वृद्धि काउंटर:">Population Growth Counter:</p>
+<p class="counter" data-target="1800000000">0</p>
 </div>
 
-<button class="collapsible" data-en="Graphs" data-hi="ग्राफ़">Graphs</button>
+<button class="collapsible ripple" data-en="Graphs & Visuals" data-hi="ग्राफ़ और दृश्य">Graphs & Visuals</button>
 <div class="content">
 <p data-en="Urban Housing Situation" data-hi="शहरी आवास की स्थिति">Urban Housing Situation</p>
 <div class="graph">
-<div class="bar-container"><div class="bar red" data-width="40%" data-en="40% Informal Housing" data-hi="40% अनौपचारिक आवास">40% Informal Housing</div></div>
-<div class="bar-container"><div class="bar green" data-width="60%" data-en="60% Formal Housing" data-hi="60% औपचारिक आवास">60% Formal Housing</div></div>
+<div class="bar-container"><div class="bar red" data-width="40%" data-en="40% Informal Housing" data-hi="40% अनौपचारिक आवास">40% Informal</div></div>
+<div class="bar-container"><div class="bar green" data-width="60%" data-en="60% Formal Housing" data-hi="60% औपचारिक आवास">60% Formal</div></div>
 </div>
 
-<p data-en="Income Security of Urban Workers" data-hi="शहरी कामगारों की आय सुरक्षा">Income Security of Urban Workers</p>
+<p data-en="Income Security" data-hi="आय सुरक्षा">Income Security</p>
 <div class="graph">
-<div class="bar-container"><div class="bar orange" data-width="20%" data-en="20% Below Living Wage" data-hi="20% जीवनयापन वेतन से कम">20% Below Living Wage</div></div>
-<div class="bar-container"><div class="bar blue" data-width="80%" data-en="80% Barely/Stable" data-hi="80% लगभग/स्थिर">80% Barely/Stable</div></div>
-</div>
+<div class="bar-container"><div class="bar orange" data-width="20%" data-en="20% Below Living Wage" data-hi="20% जीवनयापन वेतन से कम">20% Below Wage</div></div>
+<div class="bar-container"><div class="bar blue" data-width="80%" data-en="80% Stable" data-hi="80% स्थिर">80% Stable</div></div>
 </div>
 
-<button class="collapsible" data-en="Impact" data-hi="प्रभाव">Impact</button>
+<p data-en="Education Access Pie" data-hi="शिक्षा पहुँच पाई चार्ट">Education Access Pie</p>
+<div class="pie"><span data-en="45% Out of School" data-hi="45% स्कूल से बाहर">45% Out of School</span></div>
+</div>
+
+<button class="collapsible ripple" data-en="Impact" data-hi="प्रभाव">Impact</button>
 <div class="content">
 <ul>
 <li data-en="Higher disease spread" data-hi="बीमारियों का अधिक फैलाव">Higher disease spread</li>
-<li data-en="Increased healthcare burden" data-hi="स्वास्थ्य देखभाल का बढ़ा हुआ बोझ">Increased healthcare burden</li>
-<li data-en="Unsafe cities" data-hi="असुरक्षित शहर">Unsafe cities</li>
 <li data-en="Lost productivity" data-hi="आर्थिक उत्पादकता में हानि">Lost productivity</li>
+<li data-en="Unsafe streets" data-hi="असुरक्षित सड़कें">Unsafe streets</li>
+<li data-en="Generational poverty" data-hi="पीढ़ीगत गरीबी">Generational poverty</li>
 </ul>
+<p data-en="Quote:" data-hi="उद्धरण:">Quote:</p>
+<p data-en='"Ending homelessness requires empathy and action." – Expert' data-hi='"बेघरपन को खत्म करने के लिए सहानुभूति और कार्रवाई की आवश्यकता है।" – विशेषज्ञ'>"Ending homelessness requires empathy and action." – Expert</p>
 </div>
 
-<button class="collapsible" data-en="Why Fix This" data-hi="इसे सुधारने का कारण">Why Fix This</button>
+<button class="collapsible ripple" data-en="Why Fix This" data-hi="इसे सुधारने का कारण">Why Fix This</button>
 <div class="content">
 <ul>
 <li data-en="Housing is a basic human need" data-hi="आवास एक मूलभूत मानव आवश्यकता है">Housing is a basic human need</li>
-<li data-en="Healthy citizens build strong economies" data-hi="स्वस्थ नागरिक मजबूत अर्थव्यवस्था बनाते हैं">Healthy citizens build strong economies</li>
-<li data-en="Educated children mean a better future" data-hi="शिक्षित बच्चे बेहतर भविष्य का मतलब हैं">Educated children mean a better future</li>
-<li data-en="Reducing poverty improves safety" data-hi="गरीबी कम करने से सुरक्षा और सम्मान बढ़ता है">Reducing poverty improves safety</li>
+<li data-en="Healthy citizens = Strong economy" data-hi="स्वस्थ नागरिक = मजबूत अर्थव्यवस्था">Healthy citizens = Strong economy</li>
+<li data-en="Education ensures future" data-hi="शिक्षा भविष्य सुनिश्चित करती है">Education ensures future</li>
+<li data-en="Preventing poverty is cheaper than curing it" data-hi="गरीबी रोकना इसे ठीक करने से सस्ता है">Preventing poverty cheaper</li>
 </ul>
 </div>
 
-<button class="collapsible" data-en="Solutions" data-hi="समाधान">Solutions</button>
+<button class="collapsible ripple" data-en="Solutions" data-hi="समाधान">Solutions</button>
 <div class="content">
 <ul>
 <li data-en="Affordable housing programs" data-hi="किफायती आवास कार्यक्रम">Affordable housing programs</li>
-<li data-en="Night shelters and sanitation access" data-hi="रात्रि आश्रय और स्वच्छता पहुँच">Night shelters and sanitation access</li>
-<li data-en="Free education for homeless children" data-hi="बेघर बच्चों के लिए मुफ्त शिक्षा">Free education for homeless children</li>
-<li data-en="Skill training and stable jobs" data-hi="कौशल प्रशिक्षण और स्थिर नौकरी">Skill training and stable jobs</li>
-<li data-en="Support NGOs and community efforts" data-hi="एनजीओ और सामुदायिक प्रयासों का समर्थन करें">Support NGOs and community efforts</li>
+<li data-en="Night shelters & sanitation" data-hi="रात्रि आश्रय और स्वच्छता पहुँच">Night shelters & sanitation</li>
+<li data-en="Free education for children" data-hi="बेघर बच्चों के लिए मुफ्त शिक्षा">Free education for children</li>
+<li data-en="Skill training & jobs" data-hi="कौशल प्रशिक्षण और नौकरी">Skill training & jobs</li>
+<li data-en="Support NGOs & community efforts" data-hi="एनजीओ और सामुदायिक प्रयासों का समर्थन करें">Support NGOs & community efforts</li>
 </ul>
 </div>
 </section>
 
 <footer>
-<p data-en="Educational HTML App • Text Only • No Images • Offline Ready"
-   data-hi="शैक्षिक HTML ऐप • केवल टेक्स्ट • कोई चित्र नहीं • ऑफ़लाइन तैयार">Educational HTML App • Text Only • No Images • Offline Ready</p>
+<p data-en="Mega Educational App • Text Only • Offline Ready" data-hi="मेगा शैक्षिक ऐप • केवल टेक्स्ट • ऑफ़लाइन तैयार">Mega Educational App • Text Only • Offline Ready</p>
 </footer>
-
 </body>
 </html>
